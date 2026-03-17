@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yummy - Modern Restaurant</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ----- BASE RESET & VARIABLES ----- */
+    :root {
+      --primary: #cf0000;
+      --secondary: #43BA7F;
+      --dark: #1F1F24;
+      --light: #f4f4f4;
+      --text: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ----- SCROLL ANIMATIONS ----- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ----- HEADER ----- */
+    .header {
+      width: 100%;
+      background-color: var(--dark);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav {
+      display: flex;
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    .logo img {
+      width: 120px;
+      transition: transform 0.3s;
+    }
+    .logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .bar ul {
+      display: flex;
+      gap: 30px;
+      list-style-type: none;
+      align-items: center;
+    }
+
+    .bar ul li a {
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: whitesmoke;
+      transition: color 0.3s;
+    }
+
+    .bar ul li a:hover {
+      color: var(--primary);
+    }
+
+    .bar select {
+      background: transparent;
+      color: white;
+      border: 1px solid #555;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .bar select option { color: black; }
+
+    .support-btn {
+      padding: 10px 20px;
+      background-color: var(--secondary);
+      border: none;
+      border-radius: 30px;
+      color: whitesmoke;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .support-btn:hover {
+      background-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(207, 0, 0, 0.3);
+    }
+
+    /* Mobile Menu Icon */
+    .menu-toggle {
+      display: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* ----- BANNER/HERO ----- */
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .image {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    .image::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+  
+    }
+
+    .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: zoom 15s infinite alternate linear;
+    }
+
+    @keyframes zoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.15); }
+    }
+
+    .txt {
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .logo-container h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .hell { color: var(--primary); }
+
+    .txt p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .buttons button {
+      padding: 12px 35px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    #btn {
+      background-color: var(--secondary);
+      color: whitesmoke;
+    }
+    #btn:hover { background-color: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+    #btn1 {
+      background-color: var(--primary);
+      color: whitesmoke;
+    }
+    #btn1:hover { background-color: var(--secondary); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+    /* ----- GALLERY ----- */
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      padding: 60px 20px 20px;
+      color: var(--dark);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 40px;
+      width: 90%;
+      max-width: 1800px;
+      margin: 0 auto 60px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    /* ----- ABOUT / PROMO SECTION ----- */
+    .about-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      width: 90%;
+      max-width: 100%;
+      margin: 60px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .about-img, .about-spin {
+      flex: 1 1 400px;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-img img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+
+    .spinner {
+      width: 650px;
+      height: 650px;
+      min-height: 250px;
+      min-width: 250px;
+      animation: spin 15s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ----- CHEFS SECTION ----- */
+    .chefs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      width: 90%;
+      max-width: 1900px;
+      margin: 0 auto 60px;
+    }
+
+    .chef-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .chef-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .chef-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .chef-info {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .chef-info h2 { font-size: 1.4rem; color: var(--dark); margin-bottom: 5px; }
+    .chef-info h4 { font-size: 0.9rem; color: var(--secondary); margin-bottom: 15px; }
+    .chef-info p { font-size: 0.9rem; color: #666; }
+
+    /* ----- VIDEO SECTION ----- */
+    .video-container {
+      width: 90%;
+      max-width: 1800px;
+      margin: 60px auto;
+    }
+    .video-container video {
+      width: 100%;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      background-color: var(--dark);
+      color: whitesmoke;
+      padding: 60px 0 20px;
+      margin-top: 80px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+
+    .footer-box h2 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .footer-box p {
+      font-size: 0.95rem;
+      color: #bbb;
+      margin-bottom: 10px;
+    }
+
+    .social-icons i {
+      font-size: 20px;
+      margin-right: 15px;
+      cursor: pointer;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .social-icons i:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* ----- MODAL ----- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      max-width: 90%;
+      max-height: 90vh;
+      border: 5px solid white;
+      border-radius: 10px;
+      animation: popIn 0.3s ease-out forwards;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .close {
+      position: absolute;
+      top: 20px; right: 40px;
+      color: white;
+      font-size: 50px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close:hover { color: var(--primary); }
+
+    /* ----- SCROLL TO TOP ----- */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: -60px; /* Hidden initially */
+      right: 30px;
+      z-index: 99;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    #scrollTopBtn.show {
+      bottom: 30px;
+    }
+    #scrollTopBtn:hover {
+      background: var(--secondary);
+      transform: translateY(-5px);
+    }
+
+    /* ----- RESPONSIVE DESIGN (MEDIA QUERIES) ----- */
+    @media (max-width: 992px) {
+      .logo-container h1 { font-size: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      
+      .bar ul {
+        display: none; /* Hide standard menu on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--dark);
+        padding: 20px;
+        gap: 15px;
+      }
+      .bar ul.active { display: flex; } /* Show menu when toggled */
+
+      .logo-container h1 { font-size: 2.2rem; }
+      
+      .txt p { font-size: 0.95rem; }
+      
+      .buttons { flex-direction: column; padding: 0 20px; }
+      .buttons button { width: 100%; }
+      
+      .gallery-grid, .chefs-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header" id="hom">
+    <nav class="nav">
+      <div class="logo"><a href="#hom"><img src="images/logo.png" alt="Yummy Logo" onerror="this.src='https://via.placeholder.com/150x50?text=YUMMY'"></a></div>
+      <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+      <div class="bar">
+        <ul id="nav-links">
+          <li><a href="#hom">Home</a></li>
+          <li><a href="#cont">Services</a></li>
+          <li><a href="#abt">About</a></li>
+          <li>
+            <select>
+              <option value="location1">Mumbai</option>
+              <option value="location2">Delhi</option>
+              <option value="location3">New York</option>
+            </select>
+          </li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><button class="support-btn">Contact Support</button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <section class="banner reveal">
+    <div class="image">
+      <img src="images/top-view-circular-food-frame-1410x830.jpg" alt="Food background" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=2070&auto=format&fit=crop'">
+    </div>
+    <div class="txt">
+      <div class="logo-container">
+        <h1>Get <span class="hell">ready</span> for tasty food<br>
+        & Upgrade your taste in <span class="hell">all aspects</span></h1>
+      </div>
+      <p>Experience culinary excellence with our curated dishes prepared by world-class chefs. Fresh ingredients, perfect ambiance, and flavors that will leave you wanting more.</p>
+      <div class="buttons">
+        <button id="btn">Discover More</button> 
+        <button id="btn1">Contact Us</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="cont" class="reveal">
+    <h2 class="section-title">Our Signature Dishes</h2>
+    <div class="gallery-grid">
+      <img src="images/dish-story_647_081417052301.jpg" alt="Dish 1" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop'">
+      <img src="images/29-rogan-josh-canva-php0oPsU8.webp" alt="Dish 2" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&auto=format&fit=crop'">
+      <img src="images/1.jpg" alt="Dish 3" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&auto=format&fit=crop'">
+      <img src="images/2.jpeg" alt="Dish 4" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&auto=format&fit=crop'">
+      <img src="images/3.jpg" alt="Dish 5" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop'">
+      <img src="images/4.jpg" alt="Dish 6" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500&auto=format&fit=crop'">
+    </div>
+  </section>
+
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="enlargedImage">
+  </div>
+
+  <section id="abt" class="reveal">
+    <div class="about-box">
+      <div class="about-img">
+        <img src="images/calculator-image.png" alt="About Graphic" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=500&auto=format&fit=crop'">
+      </div>
+      <div class="about-spin">
+        <img src="images/hero-img.png" alt="Spinning Plate" class="spinner" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3565/3565418.png'">
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2 class="section-title">Our Professional Chefs</h2>
+    <div class="chefs-grid">
+      <div class="chef-card">
+        <img src="images/chef.jpg" alt="Chef Walter" class="chef-img" onerror="this.src='https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=500&auto=format&fit=crop'">
+        <div class="chef-info">
+          <h2>Walter White</h2>
+          <h4>Master Chef</h4>
+          <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis.</p>
+        </div>
+      </div>
+      <div class="chef-card">
+        <img src="images/chef2.jpg" alt="Chef Modi" class="chef-img" onerror="this.src='https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&auto=format&fit=crop'">
+        <div class="chef-info">
+          <h2>Modi Sir</h2>
+          <h4>Patissier</h4>
+          <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut.</p>
+        </div>
+      </div>
+      <div class="chef-card">
+        <img src="images/chef4.jpeg" alt="Chef Kabir" class="chef-img" onerror="this.src='https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=500&auto=format&fit=crop'">
+        <div class="chef-info">
+          <h2>Kabir Thapa</h2>
+          <h4>Executive Chef</h4>
+          <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/videos/3196344-uhd_3840_2160_25fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>
+
+  <section id="testimonials" class="reveal">
+    <h2 class="section-title">Our Beautiful Locations</h2>
+    <div class="gallery-grid">
+      <img src="images/hotel1.jpg" alt="Taj Hotel Mumbai" onclick="openModal(this.src)" title="Taj Hotel Mumbai" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&auto=format&fit=crop'">
+      <img src="images/hotel2.jpg" alt="Taj Hotel Delhi" onclick="openModal(this.src)" title="Taj Hotel Delhi" onerror="this.src='https://images.unsplash.com/photo-1582719508461-905c673771fd?w=500&auto=format&fit=crop'">
+      <img src="images/hotel3.jpg" alt="Hotel Palace" onclick="openModal(this.src)" title="Hotel Palace" onerror="this.src='https://images.unsplash.com/photo-1542314831-c6a4d74393e1?w=500&auto=format&fit=crop'">
+      <img src="images/hotel4.webp" alt="Rajasthan Palace" onclick="openModal(this.src)" title="Rajasthan Palace" onerror="this.src='https://images.unsplash.com/photo-1551882547-ff40c0d129df?w=500&auto=format&fit=crop'">
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-box">
+        <h2><i class="fa-solid fa-location-dot"></i> Address</h2>
+        <p>A108 Adam Street</p>
+        <p>New York, NY 535022</p>
+      </div>
+      <div class="footer-box">
+        <h2><i class="fa-solid fa-address-book"></i> Contact</h2>
+        <p>Phone: +1 5589 55488 55</p>
+        <p>Email: info@example.com</p>
+      </div>
+      <div class="footer-box">
+        <h2><i class="fa-regular fa-clock"></i> Opening Hours</h2>
+        <p>Mon-Sat: 11AM - 11PM</p>
+        <p>Sunday: Closed</p>
+      </div>
+      <div class="footer-box">
+        <h2>Follow Us</h2>
+        <div class="social-icons">
+          <i class="fa-brands fa-facebook"></i>
+          <i class="fa-brands fa-linkedin"></i>
+          <i class="fa-brands fa-youtube"></i>
+          <i class="fa-brands fa-instagram"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© Copyright dinesh kumat <strong></strong>. All Rights Reserved</p>
+      <p>Designed by Dinesh | Frontend Developer</p>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+
+  <script>
+    // --- Mobile Menu Toggle ---
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // --- Modal Logic ---
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const enlargedImage = document.getElementById('enlargedImage');
+      enlargedImage.src = imageSrc;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.style.display = 'none';
+    }
+
+    // Close modal if clicked outside image
+    window.onclick = function(event) {
+      const modal = document.getElementById('imageModal');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // --- Scroll To Top Button ---
+    const btn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // --- Scroll Reveal Animations ---
+    // This adds that cool "fade-up" effect as you scroll down the page
+    function reveal() {
+      var reveals = document.querySelectorAll(".reveal");
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        var elementVisible = 100; // when to trigger the animation
+        
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal(); // Trigger once on load
+  </script>
+
+</body>
+</html>
